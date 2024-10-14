@@ -23,3 +23,10 @@ go.work.sum
 
 # env file
 .env
+
+bazel-bin
+bazel-out
+bazel-sample-go-bzlmod
+bazel-testlogs
+
+MODULE.bazel.lock
