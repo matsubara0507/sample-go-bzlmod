@@ -1,0 +1,21 @@
+load("@rules_elm//elm:defs.bzl", "elm_binary")
+load("@rules_go//go:def.bzl", "go_library")
+
+elm_binary(
+    name = "main",
+    main = "Main.elm",
+    deps = [
+        "@elm_package_elm_html",
+    ],
+)
+
+go_library(
+    name = "front",
+    srcs = ["embed.go"],
+    embedsrcs = [
+        ":main",  # keep
+        "index.html",
+    ],
+    importpath = "github.com/matsubara0507/sample-go-bzlmod/front",
+    visibility = ["//visibility:public"],
+)

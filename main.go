@@ -6,20 +6,19 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/matsubara0507/sample-go-bzlmod/front"
 )
-
-//go:embed index.html
-var indexHtmlFile []byte
 
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
+	e.GET("/static/*", echo.WrapHandler(front.EmbedFileServerHandler("/static/")))
 	e.GET("/*", indexHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
 func indexHandler(ctx echo.Context) error {
-	return ctx.HTMLBlob(http.StatusOK, indexHtmlFile)
+	return ctx.HTMLBlob(http.StatusOK, front.EmbedIndexHtml())
 }
