@@ -9,6 +9,10 @@ go_library(
     embedsrcs = ["index.html"],
     importpath = "github.com/matsubara0507/sample-go-bzlmod",
     visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_labstack_echo_v4//:echo",
+        "@com_github_labstack_echo_v4//middleware",
+    ],
 )
 
 go_binary(

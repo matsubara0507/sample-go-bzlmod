@@ -2,19 +2,24 @@ package main
 
 import (
 	_ "embed"
-	"log"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 //go:embed index.html
 var indexHtmlFile []byte
 
 func main() {
-	http.HandleFunc("/", HomePage)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	e := echo.New()
+	e.Use(middleware.Logger())
+
+	e.GET("/*", indexHandler)
+
+	e.Logger.Fatal(e.Start(":8080"))
 }
 
-func HomePage(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf8")
-	w.Write(indexHtmlFile)
+func indexHandler(ctx echo.Context) error {
+	return ctx.HTMLBlob(http.StatusOK, indexHtmlFile)
 }
