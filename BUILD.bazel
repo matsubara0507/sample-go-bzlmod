@@ -1,0 +1,18 @@
+load("@gazelle//:def.bzl", "gazelle")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+gazelle(name = "gazelle")
+
+go_library(
+    name = "sample-go-bzlmod_lib",
+    srcs = ["main.go"],
+    embedsrcs = ["index.html"],
+    importpath = "github.com/matsubara0507/sample-go-bzlmod",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "sample-go-bzlmod",
+    embed = [":sample-go-bzlmod_lib"],
+    visibility = ["//visibility:public"],
+)
