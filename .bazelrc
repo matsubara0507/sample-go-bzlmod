@@ -1,1 +1,3 @@
 common --enable_bzlmod
+
+common:linux --platforms=@rules_go//go/toolchain:linux_amd64

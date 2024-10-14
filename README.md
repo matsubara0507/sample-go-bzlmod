@@ -9,3 +9,10 @@ build Go application
 ```
 bazelisk run //:sample-go-bzlmod
 ```
+
+build docker image
+
+```
+bazelisk build --config=linux //:load
+docker run --rm -p 8080:8080 sample-go-bzlmod:latest
+```

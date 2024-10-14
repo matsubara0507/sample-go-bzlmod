@@ -20,3 +20,24 @@ go_binary(
     embed = [":sample-go-bzlmod_lib"],
     visibility = ["//visibility:public"],
 )
+
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+
+pkg_tar(
+    name = "tar",
+    srcs = [":sample-go-bzlmod"],
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_base",
+    tars = [":tar"],
+    entrypoint = ["/sample-go-bzlmod"],
+)
+
+oci_load(
+    name = "load",
+    image = ":image",
+    repo_tags = ["sample-go-bzlmod:latest"],
+)
