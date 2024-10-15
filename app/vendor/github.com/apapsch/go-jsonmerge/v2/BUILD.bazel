@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go-jsonmerge",
+    srcs = [
+        "doc.go",
+        "merge.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/apapsch/go-jsonmerge/v2",
+    importpath = "github.com/apapsch/go-jsonmerge/v2",
+    visibility = ["//visibility:public"],
+)

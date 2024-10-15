@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "util",
+    srcs = [
+        "inputmapping.go",
+        "isjson.go",
+        "loader.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/third_party/oapi-codegen/vendor/github.com/oapi-codegen/oapi-codegen/v2/pkg/util",
+    importpath = "github.com/oapi-codegen/oapi-codegen/v2/pkg/util",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/oapi-codegen/vendor/github.com/getkin/kin-openapi/openapi3",
+        "//third_party/oapi-codegen/vendor/github.com/speakeasy-api/openapi-overlay/pkg/loader",
+        "//third_party/oapi-codegen/vendor/gopkg.in/yaml.v3:yaml_v3",
+    ],
+)

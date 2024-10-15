@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "yamlpath",
+    srcs = [
+        "comparison.go",
+        "doc.go",
+        "filter.go",
+        "filter_parser.go",
+        "lexer.go",
+        "path.go",
+        "slicer.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/third_party/oapi-codegen/vendor/github.com/vmware-labs/yaml-jsonpath/pkg/yamlpath",
+    importpath = "github.com/vmware-labs/yaml-jsonpath/pkg/yamlpath",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/oapi-codegen/vendor/github.com/dprotaso/go-yit",
+        "//third_party/oapi-codegen/vendor/gopkg.in/yaml.v3:yaml_v3",
+    ],
+)

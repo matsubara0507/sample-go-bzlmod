@@ -1,0 +1,35 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("//:build/oapi-codegen.bzl", "oapi_codegen")
+
+exports_files(
+    ["api.yaml"],
+    visibility = ["//app/client:__pkg__"],
+)
+
+oapi_codegen(
+    name = "api",
+    out = "api.gen.go",
+    generate = [
+        "types",
+        "server",
+    ],
+    package = "server",
+    spec = "api.yaml",
+    visibility = ["//app:__pkg__"],
+)
+
+go_library(
+    name = "server",
+    srcs = [
+        "api.gen.go",
+        "server.go",
+    ],
+    importpath = "github.com/matsubara0507/sample-go-bzlmod/app/server",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//app/client",
+        "//app/vendor/github.com/labstack/echo/v4:echo",
+        "//app/vendor/github.com/labstack/echo/v4/middleware",
+        "//app/vendor/github.com/oapi-codegen/runtime",
+    ],
+)

@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "types",
+    srcs = [
+        "date.go",
+        "email.go",
+        "file.go",
+        "regexes.go",
+        "uuid.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/oapi-codegen/runtime/types",
+    importpath = "github.com/oapi-codegen/runtime/types",
+    visibility = ["//visibility:public"],
+    deps = ["//app/vendor/github.com/google/uuid"],
+)

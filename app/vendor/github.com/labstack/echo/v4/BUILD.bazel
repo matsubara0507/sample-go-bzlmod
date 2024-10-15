@@ -1,0 +1,33 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "echo",
+    srcs = [
+        "bind.go",
+        "binder.go",
+        "context.go",
+        "context_fs.go",
+        "echo.go",
+        "echo_fs.go",
+        "group.go",
+        "group_fs.go",
+        "ip.go",
+        "json.go",
+        "log.go",
+        "response.go",
+        "responsecontroller_1.19.go",
+        "responsecontroller_1.20.go",
+        "router.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/labstack/echo/v4",
+    importpath = "github.com/labstack/echo/v4",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//app/vendor/github.com/labstack/gommon/color",
+        "//app/vendor/github.com/labstack/gommon/log",
+        "//app/vendor/golang.org/x/crypto/acme",
+        "//app/vendor/golang.org/x/crypto/acme/autocert",
+        "//app/vendor/golang.org/x/net/http2",
+        "//app/vendor/golang.org/x/net/http2/h2c",
+    ],
+)

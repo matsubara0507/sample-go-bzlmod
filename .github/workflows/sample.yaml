@@ -10,4 +10,6 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run
-      run: bazelisk run //:load
+      run: |
+        bazelisk run //app:api_gen
+        bazelisk run //app:load

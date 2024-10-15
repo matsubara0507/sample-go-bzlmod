@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "color",
+    srcs = ["color.go"],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/labstack/gommon/color",
+    importpath = "github.com/labstack/gommon/color",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//app/vendor/github.com/mattn/go-colorable",
+        "//app/vendor/github.com/mattn/go-isatty",
+    ],
+)

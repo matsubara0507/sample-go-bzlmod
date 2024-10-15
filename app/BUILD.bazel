@@ -1,0 +1,32 @@
+load("@gazelle//:def.bzl", "gazelle")
+load("@rules_multirun//:defs.bzl", "multirun")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+gazelle(name = "gazelle")
+
+multirun(
+    name = "api_gen",
+    commands = [
+        "//app/client:api_gen",
+        "//app/server:api_gen",
+    ],
+)
+
+pkg_tar(
+    name = "tar",
+    srcs = ["//app/cmd"],
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_base",
+    entrypoint = ["/cmd"],
+    tars = [":tar"],
+)
+
+oci_load(
+    name = "load",
+    image = ":image",
+    repo_tags = ["sample-go-bzlmod:latest"],
+)

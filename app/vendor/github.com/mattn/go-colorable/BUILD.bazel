@@ -1,0 +1,64 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go-colorable",
+    srcs = [
+        "colorable_others.go",
+        "colorable_windows.go",
+        "noncolorable.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/mattn/go-colorable",
+    importpath = "github.com/mattn/go-colorable",
+    visibility = ["//visibility:public"],
+    deps = select({
+        "@rules_go//go/platform:aix": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:android": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:darwin": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:dragonfly": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:freebsd": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:illumos": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:ios": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:js": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:linux": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:netbsd": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:openbsd": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:osx": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:plan9": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:qnx": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:solaris": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "@rules_go//go/platform:windows": [
+            "//app/vendor/github.com/mattn/go-isatty",
+        ],
+        "//conditions:default": [],
+    }),
+)

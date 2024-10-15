@@ -1,0 +1,41 @@
+load("@rules_elm//elm:defs.bzl", "elm_binary", "elm_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("//:build/openapi.bzl", "openapi_generate")
+
+openapi_generate(
+    name = "api",
+    out = "generated",
+    generator = "elm",
+    spec = "//app/server:api.yaml",
+    visibility = ["//app:__pkg__"],
+)
+
+elm_library(
+    name = "lib",
+    srcs = glob(["generated/src/**/*.elm"]),
+    strip_import_prefix = "app/client/generated/src",
+    deps = [],
+)
+
+elm_binary(
+    name = "main",
+    main = "Main.elm",
+    deps = [
+        ":lib",
+        "@elm_package_capitalist_elm_octicons",
+        "@elm_package_elm_browser",
+        "@elm_package_elm_html",
+        "@elm_package_elm_http",
+    ],
+)
+
+go_library(
+    name = "client",
+    srcs = ["embed.go"],
+    embedsrcs = [
+        ":main",  # keep
+        "index.html",
+    ],
+    importpath = "github.com/matsubara0507/sample-go-bzlmod/app/client",
+    visibility = ["//visibility:public"],
+)

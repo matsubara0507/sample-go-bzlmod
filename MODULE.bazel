@@ -9,10 +9,6 @@ bazel_dep(name = "gazelle", version = "0.39.1")
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(version = "1.23.1")
 
-go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
-go_deps.from_file(go_mod = "//:go.mod")
-use_repo(go_deps, "com_github_labstack_echo_v4")
-
 bazel_dep(name = "rules_oci", version = "2.0.0")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 
@@ -35,10 +31,31 @@ elm.repository(
     urls = ["https://github.com/elm/core/archive/1.0.5.tar.gz"],
 )
 elm.repository(
+    name = "elm_package_elm_browser",
+    sha256 = "23f41491d325afc72649d512741fb8173725014c93e482d25bab3325555a4f59",
+    strip_prefix = "browser-1.0.2",
+    urls = ["https://github.com/elm/browser/archive/1.0.2.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_bytes",
+    strip_prefix = "bytes-1.0.8",
+    urls = ["https://github.com/elm/bytes/archive/1.0.8.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_file",
+    strip_prefix = "file-1.0.5",
+    urls = ["https://github.com/elm/file/archive/1.0.5.tar.gz"],
+)
+elm.repository(
     name = "elm_package_elm_html",
     sha256 = "73b885e0a3d2f9781b1c9bbcc1ee9ac032f503f5ef46a27da3ba617cebbf6fd8",
     strip_prefix = "html-1.0.0",
     urls = ["https://github.com/elm/html/archive/1.0.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_http",
+    strip_prefix = "http-2.0.0",
+    urls = ["https://github.com/elm/http/archive/2.0.0.tar.gz"],
 )
 elm.repository(
     name = "elm_package_elm_json",
@@ -47,15 +64,85 @@ elm.repository(
     urls = ["https://github.com/elm/json/archive/1.1.3.tar.gz"],
 )
 elm.repository(
+    name = "elm_package_elm_parser",
+    strip_prefix = "parser-1.1.0",
+    urls = ["https://github.com/elm/parser/archive/1.1.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_random",
+    strip_prefix = "random-1.0.0",
+    urls = ["https://github.com/elm/random/archive/1.0.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_regex",
+    strip_prefix = "regex-1.0.0",
+    urls = ["https://github.com/elm/regex/archive/1.0.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_svg",
+    strip_prefix = "svg-1.0.1",
+    urls = ["https://github.com/elm/svg/archive/1.0.1.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_time",
+    sha256 = "e18bca487adec67bfe4043a33b975d81527a7732377050d0421dd86d503c906d",
+    strip_prefix = "time-1.0.0",
+    urls = ["https://github.com/elm/time/archive/1.0.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_elm_url",
+    sha256 = "840e9d45d8a9bd64a7f76421a1de2518e02c7cbea7ed42efd380b4e875e9682b",
+    strip_prefix = "url-1.0.0",
+    urls = ["https://github.com/elm/url/archive/1.0.0.tar.gz"],
+)
+elm.repository(
     name = "elm_package_elm_virtual_dom",
     sha256 = "cf87286ed5d1b31aaf99c6a3368ccd340d1356b1973f1afe5f668c47e22b3b60",
     strip_prefix = "virtual-dom-1.0.2",
     urls = ["https://github.com/elm/virtual-dom/archive/1.0.2.tar.gz"],
 )
+elm.repository(
+    name = "elm_package_capitalist_elm_octicons",
+    strip_prefix = "elm-octicons-2.3.0",
+    urls = ["https://github.com/capitalist/elm-octicons/archive/2.3.0.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_danyx23_elm_uuid",
+    strip_prefix = "elm-uuid-2.1.2",
+    urls = ["https://github.com/danyx23/elm-uuid/archive/2.1.2.tar.gz"],
+)
+elm.repository(
+    name = "elm_package_rtfeldman_elm_iso8601_date_strings",
+    strip_prefix = "elm-iso8601-date-strings-1.1.4",
+    urls = ["https://github.com/rtfeldman/elm-iso8601-date-strings/archive/1.1.4.tar.gz"],
+)
 use_repo(
     elm,
+    "elm_package_capitalist_elm_octicons",
+    "elm_package_danyx23_elm_uuid",
+    "elm_package_elm_browser",
+    "elm_package_elm_bytes",
     "elm_package_elm_core",
+    "elm_package_elm_file",
     "elm_package_elm_html",
+    "elm_package_elm_http",
     "elm_package_elm_json",
+    "elm_package_elm_parser",
+    "elm_package_elm_random",
+    "elm_package_elm_regex",
+    "elm_package_elm_svg",
+    "elm_package_elm_time",
+    "elm_package_elm_url",
     "elm_package_elm_virtual_dom",
+    "elm_package_rtfeldman_elm_iso8601_date_strings",
 )
+
+bazel_dep(name = "rules_openapi", version = "1.0.0")
+
+openapi = use_extension("@rules_openapi//openapi:extensions.bzl", "openapi")
+openapi.toolchain()
+use_repo(openapi, "openapi_generator_toolchains")
+
+register_toolchains("@openapi_generator_toolchains//:all")
+
+bazel_dep(name = "rules_multirun", version = "0.9.0")

@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "stdlib",
+    srcs = [
+        "manifest.go",
+        "stdlib.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/third_party/oapi-codegen/vendor/golang.org/x/tools/internal/stdlib",
+    importpath = "golang.org/x/tools/internal/stdlib",
+    visibility = ["//third_party/oapi-codegen/vendor/golang.org/x/tools:__subpackages__"],
+)

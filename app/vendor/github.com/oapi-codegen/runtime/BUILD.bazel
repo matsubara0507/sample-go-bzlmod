@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "runtime",
+    srcs = [
+        "bind.go",
+        "bindform.go",
+        "bindparam.go",
+        "bindstring.go",
+        "deepobject.go",
+        "jsonmerge.go",
+        "styleparam.go",
+    ],
+    importmap = "github.com/matsubara0507/sample-go-bzlmod/app/vendor/github.com/oapi-codegen/runtime",
+    importpath = "github.com/oapi-codegen/runtime",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//app/vendor/github.com/apapsch/go-jsonmerge/v2:go-jsonmerge",
+        "//app/vendor/github.com/google/uuid",
+        "//app/vendor/github.com/oapi-codegen/runtime/types",
+    ],
+)

@@ -1,0 +1,12 @@
+load("@gazelle//:def.bzl", "gazelle")
+load("@rules_go//go:def.bzl", "go_library")
+
+gazelle(name = "gazelle")
+
+go_library(
+    name = "oapi-codegen_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/matsubara0507/sample-go-with-bzlmod/third_party/oapi-codegen",
+    visibility = ["//visibility:public"],
+    deps = ["//third_party/oapi-codegen/vendor/github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen:oapi-codegen_lib"],
+)
