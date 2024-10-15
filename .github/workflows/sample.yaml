@@ -1,0 +1,13 @@
+name: Run sample code
+on:
+  push: null
+jobs:
+  run:
+    name: Run sample
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Run
+      run: bazelisk run //:load
